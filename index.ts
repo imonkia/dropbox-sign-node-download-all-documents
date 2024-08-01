@@ -60,10 +60,10 @@ if (allOrNot === 'Exit') {
 	// Loop through result pages to gather all signature request IDs
 	try {
 		// Updating the page size here to minimize the number of API calls
-		pageSize = 5;
+		pageSize = 100;
 		// Calculating the number of pages within this app to avoid an unnecesary API call
 		let totalNumPages = Math.ceil(totalNumResults / pageSize);
-		for (var page = 1; page <= 1; page++) {
+		for (var page = 1; page <= totalNumPages; page++) {
 			const results = await signatureRequestApi.signatureRequestList(accountId, page, pageSize);
 			// Add results to the signatureRequestIds array
 			signatureRequestIds = signatureRequestIds.concat(results.body.signatureRequests?.map(signatureRequest => signatureRequest.signatureRequestId) || []);
