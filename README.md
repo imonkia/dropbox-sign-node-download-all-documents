@@ -14,3 +14,6 @@ npm install
 Create a new file named `.env` in the root folder of the project and add your Dropbox Sign `API_KEY`.
 
 ### Run the app:
+```
+npm start
+```
