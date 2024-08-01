@@ -9,7 +9,7 @@ Be mindful of the prompts as your answers will affect results:
 * You will have the option to select between downloading PDF or ZIP files.
 
 Additionally:
-* A `files` directory will be created in the root folder of this project.
+* A `files` directory will be created, in the root folder of this project, where files will be saved into.
 * The file name of each file will default to its corresponding signature request ID, e.g. 4844301d4f601c87e77d1da7b039393ae18bb0c3.pdf.
 * Existing files with matching file names will be overwritten.
 
