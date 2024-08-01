@@ -1,8 +1,11 @@
 # Dropbox Sign Node Example
 This TypeScript console app can be used to download all of your documents from Dropbox Sign.
 
+> [!NOTE]
+> This app uses the official [Dropbox Sign Node SDK](https://github.com/hellosign/dropbox-sign-node)
+
 Be mindful of the prompts as your answers will affect results:
-* You will be asked to select between downloading just YOUR documents or ALL documents for your team - if you are part of a team.
+* You will be asked to select between downloading just **your** documents or **all** documents for your team – if you are part of a team.
 * You will have the option to select between downloading PDF or ZIP files.
 
 Additionally:
@@ -13,7 +16,6 @@ Additionally:
 > [!IMPORTANT]
 > **Depending on the amount of total files, this process may take some time.**
 
-This app uses the official [Dropbox Sign Node SDK](https://github.com/hellosign/dropbox-sign-node)
 
 ## How to use
 
