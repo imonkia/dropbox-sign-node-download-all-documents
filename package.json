@@ -1,0 +1,32 @@
+{
+  "name": "dropbox-sign-node-download-all-documents",
+  "version": "1.0.0",
+  "description": "Node script to download all documents from Dropbox Sign",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "tsc && node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/imonkia/dropbox-sign-node-download-all-documents.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/imonkia/dropbox-sign-node-download-all-documents/issues"
+  },
+  "homepage": "https://github.com/imonkia/dropbox-sign-node-download-all-documents#readme",
+  "devDependencies": {
+    "@types/node": "^22.0.2",
+    "typescript": "^5.5.4"
+  },
+  "dependencies": {
+    "@dropbox/sign": "^1.4.2",
+    "@inquirer/prompts": "^5.3.6",
+    "commander": "^12.1.0",
+    "dotenv": "^16.4.5"
+  }
+}
