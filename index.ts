@@ -40,7 +40,7 @@ if (allOrNot === 'Exit') {
 	process.exit();
 } else {
 	// If yes to documents for all members of a team, set the account_id to 'all'
-	let accountId = (allOrNot[0] === 'Yes') ? 'all' : undefined;
+	let accountId = (allOrNot === 'Yes') ? 'all' : undefined;
 	// Initial page_size
 	let pageSize: number = 1;
 	let totalNumResults: number = 0;
@@ -53,8 +53,16 @@ if (allOrNot === 'Exit') {
 		const page: number = 1;
 		const results = await signatureRequestApi.signatureRequestList(accountId, page , pageSize);
 		totalNumResults = results.body.listInfo?.numResults || 0;
+		// If no signature requests found, exit the program
+		if (totalNumResults === 0) {
+			console.log('There are no signature requests associated with this account. Exiting the program...\n');
+			process.exit();
+		} else {
+			console.log(`Total number of signature requests: ${totalNumResults}\n`);
+		};
 	} catch (error) {
-		error instanceof DropboxSign.HttpError && console.error(error.body?.error.errorMsg);
+		error instanceof DropboxSign.HttpError && console.error(`Error: ${error.body?.error.errorMsg}. Exiting the program...\n`);
+		process.exit();
 	};
 	
 	// Loop through result pages to gather all signature request IDs
@@ -63,13 +71,15 @@ if (allOrNot === 'Exit') {
 		pageSize = 100;
 		// Calculating the number of pages within this app to avoid an unnecesary API call
 		let totalNumPages = Math.ceil(totalNumResults / pageSize);
+		console.log('Gathering signature request IDs...\n\nThis process may take some time...\n\n')
 		for (var page = 1; page <= totalNumPages; page++) {
 			const results = await signatureRequestApi.signatureRequestList(accountId, page, pageSize);
 			// Add results to the signatureRequestIds array
 			signatureRequestIds = signatureRequestIds.concat(results.body.signatureRequests?.map(signatureRequest => signatureRequest.signatureRequestId) || []);
 		};
 	} catch (error) {
-		error instanceof DropboxSign.HttpError && console.error(error.body?.error.errorMsg);
+		error instanceof DropboxSign.HttpError && console.error(`Error: ${error.body?.error.errorMsg}. Exiting the program...\n`);
+		process.exit();
 	};
 
 	// Console prompt to determine fileType or exit program
@@ -96,9 +106,10 @@ if (allOrNot === 'Exit') {
 				const result = await signatureRequestApi.signatureRequestFiles(signatureRequestId, fileType);
 				fs.createWriteStream(`./files/${signatureRequestId}.${fileType}`).write(result.body);	
 			};
-			console.log(`Finished downloading all ${totalNumResults} files!`);
+			console.log(`Finished downloading all ${totalNumResults} files!\n`);
 		} catch (error) {
-			error instanceof DropboxSign.HttpError && console.error(error.body?.error.errorMsg);
+			error instanceof DropboxSign.HttpError && console.error(`Error: ${error.body?.error.errorMsg}. Exiting the program...\n`);
+			process.exit();
 		};
 	};
 };
