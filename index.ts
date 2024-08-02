@@ -45,7 +45,7 @@ if (allOrNot === 'Exit') {
 	let pageSize: number = 1;
 	let totalNumResults: number = 0;
 	// Array to later store all signature request IDs
-	let signatureRequestIds: any | string = [];
+	let signatureRequestIds: any[] = [];
 	
 	// Send request to the Dropbox Sign API
 	try {
@@ -72,7 +72,7 @@ if (allOrNot === 'Exit') {
 		// Calculating the number of pages within this app to avoid an unnecesary API call
 		let totalNumPages = Math.ceil(totalNumResults / pageSize);
 		console.log('Gathering signature request IDs...\n\nThis process may take some time...\n\n')
-		for (var page = 1; page <= totalNumPages; page++) {
+		for (let page = 1; page <= totalNumPages; page++) {
 			const results = await signatureRequestApi.signatureRequestList(accountId, page, pageSize);
 			// Add results to the signatureRequestIds array
 			signatureRequestIds = signatureRequestIds.concat(results.body.signatureRequests?.map(signatureRequest => signatureRequest.signatureRequestId) || []);
@@ -101,7 +101,7 @@ if (allOrNot === 'Exit') {
 		!fs.existsSync('./files') && fs.mkdirSync('./files');
 		try {
 			// Loop through the signature request ID array and download the documents
-			for (var i = 0; i < signatureRequestIds.length; i++) {
+			for (let i = 0; i < signatureRequestIds.length; i++) {
 				const signatureRequestId = signatureRequestIds[i];
 				const result = await signatureRequestApi.signatureRequestFiles(signatureRequestId, fileType);
 				fs.createWriteStream(`./files/${signatureRequestId}.${fileType}`).write(result.body);	
